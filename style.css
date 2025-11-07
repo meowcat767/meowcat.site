@@ -17,7 +17,7 @@ html {
 
 ul {
   position: fixed;
-  top: 50%;
+  top: 60%; /* Move it down further */
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
@@ -29,7 +29,9 @@ ul {
   padding: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  list-style-type: none;
 }
+
 
 body {
   animation: animationName 13s ease infinite;
@@ -517,4 +519,7 @@ footer marquee {
   max-width: 100%;
   height: auto;
 }
->>>>>>> e26b623477e0392dc1f4421b7f114148d5bae123
+
+.text-center-no-anim {
+  text-align: center;
+}
