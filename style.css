@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-html {
-  height: 100%;
-  width: 100%;
-}
-=======
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap");
 
 html {
@@ -338,7 +333,7 @@ button:hover {
 .text-center {
   text-align: center;
   opacity: 0;
-    color: black;
+  color: black;
   transform: translateY(100vh);
   animation: followUp 1.2s ease-out forwards;
   animation-delay: 0.6s;
