@@ -12,18 +12,35 @@
     ></script>
   </head>
   <body>
-    <h1 class="header">Meowcat's site</h1>
-    <p class="text-center-no-anim">Where do you want to go today?</p>
-    <br>
+    <!-- Maintenance Header -->
+    <header
+      id="maintenance-header"
+      style="
+        display: none;
+        background-color: #ff4c4c;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+      "
+    >
+      Site is currently under maintenance or experiencing downtime. Please check
+      <a
+        href="https://status.meowcat.site"
+        style="color: white; text-decoration: underline"
+        >status.meowcat.site</a
+      >
+      for updates.
+    </header>
+    <h1 class="header">Meowcat's Site</h1>
+    <p class="text-center"><em>Where do you want to go today?</em></p>
     <ul>
-      <li><a href="project-directory.html">Projects</a></li>
-      <li><a href="webrings.html">Webrings</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <hr>
       <li><a href="https://git.meowcat.site">Git Server</a></li>
-      <li><a href="https://status.meowcat.site">Status Page</a></li>
-      <li><a href="https://chat.meowcat.site">Chat</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="project-directory.html">Project Directory</a></li>
+        <li><a href="https://status.meowcat.site">Status</a></li>
     </ul>
+    </div>
     <script>
       // Fetch status from API and show maintenance header if needed
       async function checkMaintenanceStatus() {
