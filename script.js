@@ -192,24 +192,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // Sound effect for link clicks
   const clickSound = new Audio('click.mp3');
   
-  const allLinks = document.querySelectorAll('a, area');
+  const allLinks = document.querySelectorAll('a');
   
   allLinks.forEach(link => {
     link.addEventListener('click', function(e) {
+      // Play sound but don't block navigation
       clickSound.currentTime = 0;
       clickSound.play().catch(() => {});
-      
-      const href = this.getAttribute('href');
-      if (this.target === '_blank' || (href && (href.includes('://') || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')))) {
-        return;
-      }
-      
-      if (this.id !== 'surpriseBtn' && href && href !== '#') {
-        e.preventDefault();
-        setTimeout(() => {
-          window.location.href = this.href;
-        }, 150);
-      }
     });
   });
   
