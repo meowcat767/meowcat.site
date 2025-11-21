@@ -1,77 +1,74 @@
-// Particle Animation
+// ============================================
+// Particle Animation System
+// ============================================
+
 const canvas = document.getElementById('particleCanvas');
 if (canvas) {
   const ctx = canvas.getContext('2d');
   let particlesArray = [];
+  let animationId = null;
   
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  
-  window.addEventListener('resize', () => {
+  // Set canvas size
+  function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     init();
-  });
+  }
   
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  
+  // Particle class
   class Particle {
     constructor() {
       this.x = Math.random() * canvas.width;
       this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 3 + 1;
-      this.speedX = Math.random() * 1 - 0.5;
-      this.speedY = Math.random() * 1 - 0.5;
-      this.opacity = Math.random() * 0.5 + 0.2;
+      this.size = Math.random() * 2 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.5;
+      this.speedY = (Math.random() - 0.5) * 0.5;
+      this.opacity = Math.random() * 0.3 + 0.1;
     }
     
     update() {
       this.x += this.speedX;
       this.y += this.speedY;
       
-      if (this.x > canvas.width || this.x < 0) {
-        this.speedX = -this.speedX;
-      }
-      if (this.y > canvas.height || this.y < 0) {
-        this.speedY = -this.speedY;
-      }
+      // Wrap around edges
+      if (this.x > canvas.width) this.x = 0;
+      if (this.x < 0) this.x = canvas.width;
+      if (this.y > canvas.height) this.y = 0;
+      if (this.y < 0) this.y = canvas.height;
     }
     
     draw() {
-      ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+      ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fill();
     }
   }
   
+  // Initialize particles
   function init() {
     particlesArray = [];
-    const numberOfParticles = (canvas.width * canvas.height) / 15000;
-    for (let i = 0; i < numberOfParticles; i++) {
+    const particleCount = Math.floor((canvas.width * canvas.height) / 20000);
+    for (let i = 0; i < particleCount; i++) {
       particlesArray.push(new Particle());
     }
   }
   
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = 0; i < particlesArray.length; i++) {
-      particlesArray[i].update();
-      particlesArray[i].draw();
-    }
-    
-    connectParticles();
-    requestAnimationFrame(animate);
-  }
-  
+  // Connect nearby particles
   function connectParticles() {
     for (let a = 0; a < particlesArray.length; a++) {
-      for (let b = a; b < particlesArray.length; b++) {
+      for (let b = a + 1; b < particlesArray.length; b++) {
         const dx = particlesArray[a].x - particlesArray[b].x;
         const dy = particlesArray[a].y - particlesArray[b].y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < 120) {
-          ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 - distance / 600})`;
-          ctx.lineWidth = 1;
+        if (distance < 150) {
+          const opacity = (1 - distance / 150) * 0.15;
+          ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
+          ctx.lineWidth = 0.5;
           ctx.beginPath();
           ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
           ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
@@ -81,27 +78,60 @@ if (canvas) {
     }
   }
   
+  // Animation loop
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    for (let particle of particlesArray) {
+      particle.update();
+      particle.draw();
+    }
+    
+    connectParticles();
+    animationId = requestAnimationFrame(animate);
+  }
+  
+  // Start animation
   init();
   animate();
+  
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', () => {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+    }
+  });
 }
 
-// DOM Content Loaded Event
+// ============================================
+// DOM Content Loaded
+// ============================================
+
 document.addEventListener('DOMContentLoaded', function() {
+  
+  // ============================================
   // Clock
+  // ============================================
+  
   function updateClock() {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
     const clockElement = document.getElementById('clockTime');
+    
     if (clockElement) {
       clockElement.textContent = `${hours}:${minutes}:${seconds}`;
     }
   }
+  
   updateClock();
   setInterval(updateClock, 1000);
   
+  // ============================================
   // Random Facts
+  // ============================================
+  
   const facts = [
     "Cats sleep 70% of their lives",
     "A group of cats is called a clowder",
@@ -109,109 +139,66 @@ document.addEventListener('DOMContentLoaded', function() {
     "A cat's purr vibrates at 25-150 Hz",
     "Cats have 32 muscles in each ear",
     "A cat can jump 6x its length",
-    "Cats spend 30-50% awake grooming",
+    "Cats spend 30-50% of awake time grooming",
     "A cat's nose print is unique",
-    "I am in your walls",
     "Java is better than Python",
-    "AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
     "I am a knockoff Hitori Gotoh"
   ];
   
   const factElement = document.getElementById('randomFact');
   if (factElement) {
+    // Set initial fact
     const randomFact = facts[Math.floor(Math.random() * facts.length)];
     factElement.textContent = randomFact;
-    factElement.style.fontSize = '0.9rem';
-  }
-  
-  // Surprise Button
-  const surpriseBtn = document.getElementById('surpriseBtn');
-  if (surpriseBtn) {
-    surpriseBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      const links = [
-        'gallery.html',
-        'project-directory.html',
-        'https://status.meowcat.site',
-        'https://git.meowcat.site',
-        'https://files.meowcat.site'
-      ];
-      const randomLink = links[Math.floor(Math.random() * links.length)];
-      
-      this.innerHTML = '🎉 Surprise!';
+    
+    // Update fact every 10 seconds
+    setInterval(() => {
+      const newFact = facts[Math.floor(Math.random() * facts.length)];
+      factElement.style.opacity = '0';
       setTimeout(() => {
-        window.location.href = randomLink;
-      }, 500);
-    });
+        factElement.textContent = newFact;
+        factElement.style.opacity = '1';
+      }, 300);
+    }, 10000);
   }
   
-  // Sidebar functionality
-  const sidebar = document.querySelector('.webring-sidebar');
-  const sidebarToggleButton = document.querySelector('.floating-toggle');
+  // ============================================
+  // Smooth Scroll for Anchor Links
+  // ============================================
   
-  if (sidebarToggleButton && sidebar) {
-    sidebarToggleButton.addEventListener('click', function() {
-      if (sidebar.style.display === 'none') {
-        sidebar.style.display = 'block';
-        document.body.style.paddingLeft = '220px';
-      } else {
-        sidebar.style.display = 'none';
-        document.body.style.paddingLeft = '20px';
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
       }
     });
-  }
-
-  // Chat toggle functionality
-  const chatToggleButton = document.querySelector('.chat-toggle');
-  const chatContainer = document.querySelector('.chat-container');
+  });
   
-  if (chatToggleButton && chatContainer) {
-    chatToggleButton.addEventListener('click', function() {
-      chatContainer.classList.toggle('open');
-      
-      if (chatContainer.classList.contains('open')) {
-        chatToggleButton.innerHTML = '✕';
-      } else {
-        chatToggleButton.innerHTML = '💬';
+  // ============================================
+  // Intersection Observer for Animations
+  // ============================================
+  
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
       }
     });
-  }
-
-  // Sound effect for link clicks - removed to fix navigation issues
-  // Links now work without any JavaScript interference
+  }, observerOptions);
   
-  // Add parallax effect to cards - without interfering with links
-  const cards = document.querySelectorAll('.nav-card');
-  cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      // Don't apply effect if hovering over a link
-      if (e.target.closest('.card-link')) {
-        return;
-      }
-      
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const rotateX = (y - centerY) / 20;
-      const rotateY = (centerX - x) / 20;
-      
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
-    });
-    
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-    
-    // Ensure links within cards are clickable
-    const cardLinks = card.querySelectorAll('.card-link');
-    cardLinks.forEach(link => {
-      link.style.pointerEvents = 'auto';
-      link.style.position = 'relative';
-      link.style.zIndex = '10';
-    });
+  // Observe all cards
+  document.querySelectorAll('.stat-card, .link-card').forEach(card => {
+    observer.observe(card);
   });
 });

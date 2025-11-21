@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
-    <title>Meowcat's Site</title>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base target="_top" />
+    <meta name="description" content="Meowcat767's personal website - Java developer and creator of mct text editor" />
+    <title>Meowcat767 | Developer & Creator</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3059320394040070"
@@ -14,103 +20,96 @@
     ></script>
   </head>
   <body>
-    <!-- Particle Background -->
-    <canvas id="particleCanvas"></canvas>
-    
     <!-- Maintenance Header -->
     <header
       id="maintenance-header"
-      style="
-        display: none;
-        background-color: #ff4c4c;
-        color: white;
-        padding: 10px;
-        text-align: center;
-        font-weight: bold;
-        z-index: 1000;
-        position: relative;
-      "
+      style="display: none;"
     >
-      Site is currently under maintenance or experiencing downtime. Please check
-      <a
-        href="https://status.meowcat.site"
-        style="color: white; text-decoration: underline"
-        >status.meowcat.site</a
-      >
-      for updates.
+      <div class="maintenance-content">
+        <span>⚠️ Site is currently under maintenance</span>
+        <a href="https://status.meowcat.site" target="_blank">Check Status</a>
+      </div>
     </header>
+
+    <!-- Particle Background -->
+    <canvas id="particleCanvas"></canvas>
 
     <!-- Main Content -->
     <div class="container">
-      <div class="hero-section">
-        <h1 class="glitch-text" data-text="Meowcat's Site">Meowcat's Site</h1>
-        <p class="subtitle">Where do you want to go today?</p>
-        <div class="wave-animation">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            <span class="gradient-text">Meowcat767</span>
+          </h1>
+          <p class="hero-subtitle">Hello there! 👋</p>
+          <p class="hero-description">
+            I'm a Java software developer, and my current focus is my implementation of 
+            <strong>mct</strong> (Meowcat's Text Editor).
+          </p>
+          <p class="hero-note">
+            <small>💡 Want to download it? Check out <a href="https://files.meowcat.site" target="_blank" rel="noopener">the file server</a></small>
+          </p>
         </div>
-      </div>
+      </section>
 
-      <!-- Navigation Cards -->
-      <div class="card-grid">
-        <div class="nav-card" data-color="#e74c3c">
-          <div class="card-icon">🖼️</div>
-          <h3>Gallery</h3>
-          <p>Browse through my collection of images and art</p>
-          <a href="gallery.html" class="card-link">Visit Gallery</a>
-        </div>
-
-        <div class="nav-card" data-color="#3498db">
-          <div class="card-icon">📁</div>
-          <h3>Project Directory</h3>
-          <p>Explore my projects and creations</p>
-          <a href="project-directory.html" class="card-link">View Projects</a>
-        </div>
-
-        <div class="nav-card" data-color="#2ecc71">
-          <div class="card-icon">📊</div>
-          <h3>Status</h3>
-          <p>Check the current status of all services</p>
-          <a href="https://status.meowcat.site" class="card-link">Check Status</a>
-        </div>
-
-        <div class="nav-card" data-color="#9b59b6">
-          <div class="card-icon">🔧</div>
-          <h3>Git Server</h3>
-          <p>Access my git repositories and code</p>
-          <a href="https://git.meowcat.site" class="card-link">Browse Code</a>
-        </div>
-
-        <div class="nav-card" data-color="#f39c12">
-          <div class="card-icon">📂</div>
-          <h3>File Server</h3>
-          <p>Download files and resources</p>
-          <a href="https://files.meowcat.site" class="card-link">Browse Files</a>
-        </div>
-
-        <div class="nav-card" data-color="#1abc9c">
-          <div class="card-icon">✨</div>
-          <h3>Surprise Me!</h3>
-          <p>Click for a random adventure</p>
-          <a href="#" class="card-link" id="surpriseBtn">Take Me There!</a>
-        </div>
-      </div>
-
-      <!-- Fun Stats Section -->
-      <div class="stats-section">
-        <div class="stat-box">
+      <!-- Stats Section -->
+      <section class="stats-section">
+        <div class="stat-card">
+          <div class="stat-icon">🕐</div>
           <div class="stat-number" id="clockTime">00:00:00</div>
           <div class="stat-label">Current Time</div>
         </div>
-        <div class="stat-box">
+        <div class="stat-card">
+          <div class="stat-icon">💡</div>
           <div class="stat-number" id="randomFact">Loading...</div>
           <div class="stat-label">Did You Know?</div>
         </div>
-      </div>
+      </section>
 
-      <!-- Version Footer -->
+      <!-- Quick Links Section -->
+      <section class="links-section">
+        <h2 class="section-title">Quick Links</h2>
+        <div class="links-grid">
+          <a href="gallery.html" class="link-card">
+            <div class="link-icon">🖼️</div>
+            <h3>Gallery</h3>
+            <p>Images of all time</p>
+          </a>
+          <a href="project-directory.html" class="link-card">
+            <div class="link-icon">💻</div>
+            <h3>Projects</h3>
+            <p>My open source work</p>
+          </a>
+          <a href="https://status.meowcat.site" target="_blank" rel="noopener" class="link-card">
+            <div class="link-icon">📊</div>
+            <h3>Status</h3>
+            <p>Service status</p>
+          </a>
+          <a href="https://git.meowcat.site" target="_blank" rel="noopener" class="link-card">
+            <div class="link-icon">🔧</div>
+            <h3>Git Server</h3>
+            <p>Code repository</p>
+          </a>
+          <a href="https://files.meowcat.site" target="_blank" rel="noopener" class="link-card">
+            <div class="link-icon">📦</div>
+            <h3>File Server</h3>
+            <p>Downloads & files</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- Footer -->
       <footer class="footer">
-        <p>Version 4 Beta - Now with 100% more sparkles ✨</p>
-        <p><small>Made with 💜 and excessive CSS animations</small></p>
-          <p><small>Webmaster contact: <a href="mailto:meowcat@meowcat.site">meowcat@meowcat.site</a></small></p>
+        <p class="footer-text">
+          <span class="version-badge">v5.0</span>
+          Made with <span class="heart">💜</span> and modern web technologies
+        </p>
+        <p class="footer-contact">
+          <small>
+            Webmaster: <a href="mailto:meowcat@meowcat.site">meowcat@meowcat.site</a>
+          </small>
+        </p>
       </footer>
     </div>
 
@@ -136,12 +135,6 @@
         }
       }
       checkMaintenanceStatus();
-
-      // Redirect check
-      var redirectValue = 0;
-      if (redirectValue === 1) {
-        window.location.href = "maintain.html";
-      }
     </script>
   </body>
 </html>
