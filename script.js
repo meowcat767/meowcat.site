@@ -104,11 +104,10 @@ if (canvas) {
 }
 
 // ============================================
-// DOM Content Loaded
+// Clock and Facts - Run immediately or on DOM ready
 // ============================================
 
-document.addEventListener('DOMContentLoaded', function() {
-  
+function initClockAndFacts() {
   // ============================================
   // Clock
   // ============================================
@@ -125,7 +124,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
+  // Update immediately
   updateClock();
+  // Then update every second
   setInterval(updateClock, 1000);
   
   // ============================================
@@ -147,9 +148,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
   const factElement = document.getElementById('randomFact');
   if (factElement) {
-    // Set initial fact
+    // Set initial fact immediately
     const randomFact = facts[Math.floor(Math.random() * facts.length)];
     factElement.textContent = randomFact;
+    factElement.style.transition = 'opacity 0.3s ease';
+    factElement.style.opacity = '1';
     
     // Update fact every 10 seconds
     setInterval(() => {
@@ -161,6 +164,21 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 300);
     }, 10000);
   }
+}
+
+// Run immediately if DOM is already loaded, otherwise wait
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initClockAndFacts);
+} else {
+  // DOM is already loaded
+  initClockAndFacts();
+}
+
+// ============================================
+// DOM Content Loaded - Other functionality
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
   
   // ============================================
   // Smooth Scroll for Anchor Links
