@@ -147,7 +147,10 @@ if (canvas) {
       "Cats spend 30-50% of awake time grooming",
       "A cat's nose print is unique",
       "Java is better than Python",
-      "I am a knockoff Hitori Gotoh"
+      "I am a knockoff Hitori Gotoh",
+        "JetBrains WebStorm is annoying with indentation?",
+        "java: missing ';' on line 103.",
+        "I kind of like Python.",
     ];
     
     const factElement = document.getElementById('randomFact');
