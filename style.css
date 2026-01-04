@@ -5,7 +5,7 @@
   --primary-dark: #4f46e5;
   --primary-light: #818cf8;
   --secondary: #8b5cf6;
-  --accent: #ec4899;
+  --accent: #ff0000;
   --accent-light: #f472b6;
   
   /* Neutrals */
@@ -40,7 +40,7 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+  --shadow-glow: 0 0 20px rgba(178, 1, 1, 0.3);
   
   /* Transitions */
   --transition-fast: 150ms ease;
